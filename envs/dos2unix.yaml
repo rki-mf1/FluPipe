@@ -1,0 +1,5 @@
+name: dos2unix
+channels:
+  - conda-forge
+dependencies:
+  - dos2unix=7.4.1

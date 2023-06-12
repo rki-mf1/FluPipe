@@ -1,0 +1,8 @@
+qchannels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - snakemake=6.10.0
+  - pysam=0.17.0
+  - biopython=1.79
+  - strictyaml=1.6.1

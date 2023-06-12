@@ -1,0 +1,8 @@
+name: conda
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - conda>=4.9.2
+  - conda-package-handling>=1.7.2
