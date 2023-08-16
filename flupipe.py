@@ -74,6 +74,7 @@ def parse_args():
 	group_out.add_argument('--threads', metavar="INT", help="number of threads to use (default: 1)", type=int, default=1)
 	group_out.add_argument('--run_id', metavar="STR", help="run ID (default: None)", type=str, default=None)
 	group_out.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
+	group_out.add_argument('--conda_dir', metavar="STR", help="directory to install conda environments to (default: .snakemake)", type=str, default=".snakemake")
 
 	return parser.parse_args()
 
@@ -221,7 +222,7 @@ def main():
 	#run snakemake
 	path = os.path.dirname(os.path.abspath(__file__))
 	snakefile = os.path.join(path, "flupipe.Snakefile")
-	cmd = ["snakemake", "-s", snakefile, "--configfile", configfile, "--cores",  str(args.threads), "--use-conda" , "--conda-frontend", "mamba", "--rerun-incomplete",  "--nolock"]
+	cmd = ["snakemake", "-s", snakefile, "--configfile", configfile, "--cores",  str(args.threads), "--use-conda" , "--conda-frontend", "mamba", "--rerun-incomplete",  "--nolock","--conda-prefix",args.conda_dir]
 	#cmd = ["snakemake", "--dag -s", snakefile, "--configfile", configfile, "--cores",  str(args.threads), " | dot -Tsvg > dag.svg"]
 	print("executing:", " ".join(cmd))
 	subprocess.Popen(cmd).wait()
