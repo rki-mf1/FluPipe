@@ -268,6 +268,13 @@ if (params$run_name != 'none') {
 dt.coverage <- as.data.table(ldply(l.infiles.coverage, fread, sep='\t'))
 colnames(dt.coverage) <- c("sample","chromosome", "position", "depth")
 
+# rename chromosome column values
+dt.coverage$chromosome <- sapply(dt.coverage$chromosome, function(x){
+  segment <- tail(unlist(strsplit(x,"|",fixed=TRUE)), n=1)
+  segment <- toString(segment)
+  return(segment)
+})
+
 dt.output <- dt.coverage[, sum(depth > 10), by = sample]
 setnames(dt.output, "V1", "covered.bases")
 dt.output$genome.length <- dt.coverage[,length(depth), by = sample]$V1
@@ -281,8 +288,12 @@ dt.bamstats.coverage[,("coverage") := round(.SD,2), .SDcols="coverage"]
 dt.bamstats.coverage[,("meandepth") := round(.SD,0), .SDcols="meandepth"]
 colnames(dt.bamstats.coverage) <- c("sample","chromosome","reads mapped [%]", "coverage [%]", "mean depth [bp]")
 
-cc <- unlist(strsplit(dt.bamstats.coverage$chromosome,"|",fixed=TRUE))
-dt.bamstats.coverage$chromosome <- cc[4*(1:length(dt.bamstats.coverage$chromosome))]
+# rename chromosome column values
+dt.bamstats.coverage$chromosome <- sapply(dt.bamstats.coverage$chromosome, function(x){
+  segment <- tail(unlist(strsplit(x,"|",fixed=TRUE)), n=1)
+  segment <- toString(segment)
+  return(segment)
+})
 
 dt.bamstats.coverage <- reshape(dt.bamstats.coverage, idvar = "sample", timevar = "chromosome", direction = "wide")
 
@@ -891,7 +902,6 @@ rm(df.bamstat.data)
 rm(dt.bamstats.coverage)
 rm(df.output)
 rm(df.mapping.table)
-rm(cc)
 ```
 
 ### Coverage Distribution
@@ -902,9 +912,6 @@ The following plots show the read coverage of each sample after mapping. In 100 
 # read file content
 # dt.coverage <- as.data.table(ldply(l.infiles.coverage, fread, sep='\t'))
 # colnames(dt.coverage) <- c("sample","chromosome", "position", "depth")
-
-# rename chromosome column values
-dt.coverage$chromosome <- unlist(strsplit(dt.coverage$chromosome,"|",fixed=TRUE))[4*(1:length(dt.coverage$chromosome))]
 
 # reduce amount of data points to be plotted
 dt.coverage[, bin:=rep(seq(1, ceiling(length(position) / 100)), each = 100, length.out = length(position)), by = "sample"]
