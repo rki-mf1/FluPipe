@@ -1,6 +1,7 @@
 # FluPipe
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/rki_de.svg?style=social)](https://twitter.com/rki_de)
+[![DOI](https://zenodo.org/badge/652663468.svg)](https://zenodo.org/doi/10.5281/zenodo.13684139)
 
 
 
