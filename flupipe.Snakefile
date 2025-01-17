@@ -188,7 +188,10 @@ def input_all(wildcards):
 
     ## consensus
     for sample in SAMPLES:
-        files.append(os.path.join(IUPAC_CNS_FOLDER, sample + ".iupac_consensus.fasta"))
+        if sample.startswith("NPC"):
+            files.append(os.path.join(DATAFOLDER["classified"], sample, sample + ".kraken.report.txt"))
+        else:
+            files.append(os.path.join(IUPAC_CNS_FOLDER, sample + ".iupac_consensus.fasta"))
 
     ## masked consensus
     #for sample in SAMPLES:
