@@ -10,8 +10,7 @@ rule createReport:
         dedupe_metric = expand(os.path.join(DATAFOLDER["mapping"], "{sample}", "{sample}.dedup.txt"), sample = [sample for sample in SAMPLES.keys() if not sample.startswith("NPC")]),
         consensus= expand(os.path.join(IUPAC_CNS_FOLDER, "{sample}.iupac_consensus.fasta"), sample = [sample for sample in SAMPLES.keys() if not sample.startswith("NPC")])
     output:
-        report = os.path.join(PROJFOLDER, "qc_report.html"),
-        nstats = (os.path.join(DATAFOLDER["reporting"], "N_content_and_Ambigiuos_calls.csv"))
+        report = os.path.join(PROJFOLDER, "qc_report.html")
     params:
         p_folder = PROJFOLDER,
         l_folder = DATAFOLDER["reporting"],
