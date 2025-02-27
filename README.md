@@ -18,7 +18,7 @@ The most convenient way to install the pipeline is by using git and [conda](http
 cd designated/path
 git clone https://github.com/rki-mf1/FluPipe.git/
 cd FluPipe
-conda create -f flupipe.yml -n FluPipe
+conda env create -f flupipe.yml -n FluPipe
 conda activate FluPipe
 ```
 
